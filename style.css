@@ -41,3 +41,11 @@ section {
     width: 60%;
     background-color: #FFFFFF;
 }
+
+.menuHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    height: 10vh;
+}
