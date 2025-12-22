@@ -21,11 +21,10 @@ nav {
 
 nav img {
     margin-left: 50px;
-    width: 4%;
+    width: 8vh;
 }
 
 .container {
-
     display: flex;
     height: 90vh;
     width: 100%;
@@ -49,3 +48,20 @@ section {
     padding: 10px;
     height: 10vh;
 }
+
+.menuMain{
+    display: flex;
+    padding: 0 25px 0 25px;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tasks {
+    font-size: 10px;
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+}
+.tasks p {
+    font-weight: 700;
+} 
