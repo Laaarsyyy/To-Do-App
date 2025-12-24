@@ -7,14 +7,16 @@
 
 :root {
     --primary-color: #FFD800;
-    --secondary-color: #F2F2F2;
-    --tertiary-color: #FFFFFF;
-    --dark-bg-color: #242424;
-    --dark-text-color: #FFFFFF;
+    --primary-bg-color: #ffffff;
+    --secondary-bg-color: #F2F2F2;
+    --text-color: 	#585858;
+    --shadow: gray;
 
-    .darkkMode {
-        --bg-color: var(--dark-bg-color);
-        --text-color: var(--dark-text-color);
+    .darkMode {
+        --primary-bg-color: #242526;
+        --secondary-bg-color: #3a3b3c;
+        --text-color: #FFFFFF;
+        --shadow: #000000;
     }
 }
 
@@ -23,8 +25,8 @@ body {
 }
 
 body.darkMode {
-    background-color: #242424;
-    color: #FFFFFF;
+    background-color: var(--primary-bg-color);
+    color: var(--text-color);
 }
 
 .bodyBackground {
@@ -34,7 +36,7 @@ body.darkMode {
     transform: translate(-50%, -50%);
     width: 70vh;
     opacity: 0.1;
-    filter: drop-shadow(-5px 5px 5px gray);
+    filter: drop-shadow(-5px 5px 5px var(--shadow));
 }
 
 nav {
@@ -43,8 +45,8 @@ nav {
     border-radius: 0 0 10px 10px;
     width: 100%;
     height: 10vh;
-    background-color: #FFD800;
-    filter: drop-shadow(-5px 5px 5px gray);
+    background-color: var(--primary-color);
+    filter: drop-shadow(-5px 5px 5px var(--shadow));
 }
 
 .navLogo {
@@ -62,7 +64,8 @@ nav {
 aside {
     border: none;
     width: 20%;
-    background-color: #F2F2F2;
+    background-color: var(--secondary-bg-color);
+    transition: 0.3s ease;
 }
 
 section {
@@ -70,10 +73,12 @@ section {
     width: 60%;
     height: 85vh;
     margin: 0px 25px 0px 25px;
-    background-color: #FFFFFF;
+    background-color: var(--primary-bg-color);
+    transition: 0.3s ease;
 }
 
 .menu {
+    color: var(--text-color);
     overflow-y: auto;
     border-radius: 10px;
     margin-left: 25px;
