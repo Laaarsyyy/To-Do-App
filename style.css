@@ -10,11 +10,13 @@
     --primary-bg-color: #ffffff;
     --secondary-bg-color: #F2F2F2;
     --text-color: 	#585858;
+    --secondary-text-color: #000000;
     --shadow: gray;
 
     .darkMode {
         --primary-bg-color: #242526;
         --secondary-bg-color: #3a3b3c;
+        --secondary-text-color: #ffffff;
         --text-color: #FFFFFF;
         --shadow: #000000;
     }
@@ -272,11 +274,23 @@ section {
 }
 
 .mainHeader {
+    box-sizing: border-box;
     display: flex;
-    height: 10vh;
-    gap: 50px;
+    height: 9vh;
+    gap: 30px;
 }
 
 .mainHeader h1 {
     font-size: 55px;
+}
+
+.mainHeader p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    padding: 0px 20px 0px 20px;
+    border-radius: 10px;
+    border: 1px solid #d8d8d8;
+    color: var(--secondary-text-color);
 }
