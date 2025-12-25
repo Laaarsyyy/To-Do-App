@@ -271,6 +271,12 @@ section {
     transition: 0.3s ease;
 }
 
+.mainHeader {
+    display: flex;
+    height: 10vh;
+    gap: 50px;
+}
+
 .mainHeader h1 {
-    font-size: 50px;
+    font-size: 55px;
 }
