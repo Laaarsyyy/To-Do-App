@@ -25,10 +25,10 @@
 
              <div class="menuMain">
                 <input class="searchMenuInput" type="text" placeholder="Search">
-                <ul class="tasks">
+                <ul class="taskMenu">
                     <p>TASKS</p>
                     <li><i class="fa-solid fa-angles-right"></i> Upcoming</li>
-                    <li><i class="fas fa-hourglass-half"></i>Today</li>
+                    <li class="activeMenu"><i class="fas fa-hourglass-half"></i>Today<span>5</span></li>
                     <li><i class="fa-regular fa-calendar"></i>Calendar</li>
                 </ul>
 
@@ -61,11 +61,15 @@
 
         <section>
             <header class="mainHeader">
-                <h1 class="mainSectionTitle">Today</h1>
-                <p>5</p>
+                <h1 class="mainSectionTitle">Today<p class="todayTaskCount">5</p></h1>
+                <div class="taskContainer">
+                    <button class="addTaskButton"><i class="fa-solid fa-plus"></i> Add Task</button>
+                </div>
+                <ul class="tasks">
+                    <li><p><input type="checkbox"/>Maglinis ng kwarto</p></li>
+                </ul>
             </header>
         </section>
-
         <aside>burat</aside>
     </div>
     <script src="script.js"></script>
