@@ -68,7 +68,8 @@ nav {
     width: 100%;
 }
 
-aside {
+.menu{
+    box-shadow: -3px 3px 10px var(--shadow);
     border: none;
     width: 20%;
     background-color: var(--secondary-bg-color);
@@ -106,7 +107,6 @@ aside {
 
 .menuMain ul {
     margin-left: 10px;
-    cursor: pointer;
 }
 
 .menuMain ul i {
@@ -141,11 +141,11 @@ aside {
 .taskMenu li {
     display: flex;
     align-items: center;
-    cursor: pointer;
     height: 30px;
     padding-left: 10px;
     list-style: none;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .taskMenu span {
@@ -369,12 +369,14 @@ section {
     justify-content: space-between;
 }
 
-#task input {
+#task input[type="checkbox"] {
+    accent-color: var(--primary-color);
     color: var(--text-color);
     margin-right: 20px;
     width: 15px;
     height: 15px;
 }
+
 
 #task:first-child {
     border-top: none;
@@ -388,14 +390,18 @@ section {
 
 /*
 ===========================================================================================
-                                        Task Information aside
+                                        Upcoming Tasks Section
 ===========================================================================================
 */
 
-.taskInformation {
+.upcomingSection {
+    width: 25%;
     color: var(--text-color);
     overflow-y: auto;
     border-radius: 10px;
     margin-right: 25px;
     height: 85vh;
+    border: none;
+    background-color: var(--secondary-bg-color);
+    box-shadow: 3px 3px 10px var(--shadow);
 }
