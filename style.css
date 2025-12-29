@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Outfit:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 *{
     margin: 0;
@@ -23,10 +24,6 @@
         --shadow: #000000;
         --border-color: #4b4b4b;
     }
-}
-
-body {
-    font-family: 'Outfit', sans-serif;
 }
 
 body.darkMode {
@@ -69,6 +66,7 @@ nav {
 }
 
 .menu{
+    font-family: 'Outfit', sans-serif;
     box-shadow: -3px 3px 10px var(--shadow);
     border: none;
     width: 20%;
@@ -289,7 +287,8 @@ nav {
 ===========================================================================================
 */
 
-section {
+.mainSection {
+    font-family: 'Outfit', sans-serif;
     flex: 1;
     height: 85vh;
     margin: 0px 25px 0px 25px;
