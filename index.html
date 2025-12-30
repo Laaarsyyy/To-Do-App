@@ -27,7 +27,6 @@
                 <input class="searchMenuInput" type="text" placeholder="Search">
                 <ul class="taskMenu">
                     <p>TASKS</p>
-                    <li><i class="fa-solid fa-angles-right"></i> Upcoming</li>
                     <li class="activeMenu"><i class="fas fa-hourglass-half"></i>Today<span>5</span></li>
                     <li><i class="fa-regular fa-calendar"></i>Calendar</li>
                 </ul>
@@ -38,11 +37,6 @@
                 </ul>
 
                 <footer class="menuFooter">
-                    <div class="footerLeft">
-                        <i class="fa-solid fa-sliders"></i>
-                        <span>Settings</span>
-                    </div>
-
                     <input type="checkbox" id="darkModeToggle">
                     <label for="darkModeToggle">
 
@@ -78,33 +72,16 @@
         <aside class="upcomingSection">
             <header class="upcomingHeader">
                 <h4>Upcoming Tasks</h4>
-                <ion-icon name="calendar-clear-outline"></ion-icon>
             </header>
-            <div class="upcomingTasks">
-                <div class="upcomingTask">
-                    <div class="upcomingTaskInfo">
-                        <div class="upcomingTaskIndicator" style="background-color: #FF5733;"></div>
-                        <p>Grocery Shopping</p>
-                    </div>
-                    <span>Aug 25</span>
+            <div class="sticky-container">
+                <div class="sticky-note">
+                    <p>Mag-iingat ikaw ha</p>
                 </div>
 
-                <div class="upcomingTask">
-                    <div class="upcomingTaskInfo">
-                        <div class="upcomingTaskIndicator" style="background-color: #33C1FF;"></div>
-                        <p>Doctor's Appointment</p>
-                    </div>
-                    <span>Aug 26</span>
+                <div class="sticky-note">
+                    <p>Bebe time tayo mamaya</p>
                 </div>
-
-                <div class="upcomingTask">
-                    <div class="upcomingTaskInfo">
-                        <div class="upcomingTaskIndicator" style="background-color: #75FF33;"></div>
-                        <p>Team Meeting</p>
-                    </div>
-                    <span>Aug 27</span>
-                </div>
-            </div> 
+            </div>
         </aside>
     </div>
     <script src="script.js"></script>

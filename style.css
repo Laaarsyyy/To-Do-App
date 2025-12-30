@@ -28,7 +28,7 @@
 
 body.darkMode {
     background-color: var(--primary-bg-color);
-    color: var(--text-color);
+
 }
 
 .bodyBackground {
@@ -270,14 +270,8 @@ nav {
   }
 }
 
-.footerLeft {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
 #darkModeToggle {
-    margin-left: auto;
+    margin-left: 0px;
     cursor: pointer;
 }
 
@@ -320,6 +314,7 @@ nav {
     display: flex;
     align-items: center;
     font-size: 55px;
+    color: var(--secondary-text-color);
 }
 
 .taskContainer {
@@ -395,7 +390,6 @@ nav {
 
 .upcomingSection {
     width: 25%;
-    color: var(--text-color);
     overflow-y: auto;
     border-radius: 10px;
     margin-right: 25px;
@@ -404,3 +398,35 @@ nav {
     background-color: var(--secondary-bg-color);
     box-shadow: 3px 3px 10px var(--shadow);
 }
+
+.upcomingHeader {
+    font-family: 'Outfit', sans-serif;
+    display: flex;
+    font-size: 25px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    height: 10vh;
+    border-bottom: 1px dashed var(--border-color);
+    color: var(--secondary-text-color);
+}
+
+.sticky-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);;
+}
+
+.sticky-note {
+    font-weight: 700;
+    font-size: 20px;
+    font-family: 'Caveat', cursive;
+    height: 20vh;
+    width: 80%;
+    margin: 20px;
+    padding: 10px;
+    background-color: #fffacd;
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px var(--shadow);
+    color: #000000;
+}
+
