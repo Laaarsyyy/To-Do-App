@@ -190,7 +190,7 @@ nav {
     height: 10vh;
 }
 
-.menuFooter label {
+.menuFooter .darkModeLabel {
     width: 60px;
     height: 30px;
     position: relative;
@@ -201,7 +201,7 @@ nav {
     cursor: pointer;
 }
 
-.menuFooter label:after {
+.menuFooter .darkModeLabel:after {
     content: "";
     width: 25px;
     height: 25px;
@@ -212,59 +212,59 @@ nav {
     border-radius: 180px;
     box-shadow: 0px 5px 10px rgba(0,0,0,0.2);
 }
-.menuFooter input {
+.menuFooter .darkmodeCheckbox {
     width: 0;
     height: 0;
     visibility: hidden;
 }
 
-.menuFooter input:checked + label {
+.menuFooter .darkmodeCheckbox:checked + .darkModeLabel {
     background: #242424;
 }
 
-.menuFooter input:checked + label:after {
+.menuFooter .darkmodeCheckbox:checked + .darkModeLabel:after {
     left: 35px;
     transform: translateX(-10%);
     background: linear-gradient(180deg,#777,#3a3a3a);
 }
 
-.menuFooter label, label:after {
+.menuFooter .darkModeLabel, .darkModeLabel:after {
     transition: 0.3s
 }
 
-.menuFooter label:active:after{ 
+.menuFooter .darkModeLabel:active:after{ 
      width: 10px; 
 }
 
-.menuFooter label svg {
+.menuFooter .darkModeLabel svg {
     position: absolute;
     width: 20px;
     top: 2px;
     z-index: 100;
 }
-.menuFooter label svg.sun {
+.menuFooter .darkModeLabel svg.sun {
     height: 25px;
     left: 5px;
     fill:#ffffff;
     transition: 0.3s;
 }
 
-.menuFooter label svg.moon {
+.menuFooter .darkModeLabel svg.moon {
     height: 25px;
     left: 35px;
     fill:#7e7e7e;
     transition: 0.3s;
 }
 
-.menuFooter input:checked + label svg.sun {
+.menuFooter .darkmodeCheckbox:checked + .darkModeLabel svg.sun {
     fill:#7e7e7e;
 }
 
-.menuFooter input:checked + label svg.moon {
+.menuFooter .darkmodeCheckbox:checked + .darkModeLabel svg.moon {
     fill:#fff;
 }
 
-.menuFooter input:checked + label + body {
+.menuFooter .darkmodeCheckbox:checked + .darkModeLabel + body {
   .body {
     background-color: #242424;
   }

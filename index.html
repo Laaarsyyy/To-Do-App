@@ -17,6 +17,11 @@
     <img class="bodyBackground" src="Assets/logo.png" alt="">
     
     <div class="container">
+<!-- 
+===========================================================================================
+                                        Menu Section
+===========================================================================================
+-->
         <aside class="menu">
              <header class="menuHeader">
                 <h4>Menu</h4>
@@ -37,8 +42,14 @@
                 </ul>
 
                 <footer class="menuFooter">
-                    <input type="checkbox" id="darkModeToggle">
-                    <label for="darkModeToggle">
+
+                    <div class="colorPicker">
+                        <input type="color" id="color">
+                        <label for="color" id="colorOutput"></label>
+                    </div>
+
+                    <input class="darkmodeCheckbox" type="checkbox" id="darkModeToggle">
+                    <label for="darkModeToggle" class="darkModeLabel">
 
                         <svg fill="#000000" width="800px" height="800px" viewBox="0 0 32 32" version="1.1" class= "sun" xmlns="http://www.w3.org/2000/svg">
                             <title>sun-alt</title>
@@ -53,6 +64,12 @@
              </div>
         </aside>
 
+<!-- 
+===========================================================================================
+                                        Main Section
+===========================================================================================
+-->
+
         <section class="mainSection">
             <header class="mainHeader">
                 <h1 class="mainSectionTitle">Today<p class="todayTaskCount">5</p></h1>
@@ -66,9 +83,13 @@
                 <li id="task"><p><input type="checkbox"/>Maglinis ng kwarto</p><i class="fa-solid fa-angle-right"></i></li>
                 <li id="task"><p><input type="checkbox"/>Maglinis ng kwarto</p><i class="fa-solid fa-angle-right"></i></li>
             </ul>
-
         </section>
 
+<!-- 
+===========================================================================================
+                                        Sticky Section
+===========================================================================================
+-->
         <aside class="upcomingSection">
             <header class="upcomingHeader">
                 <h4>Upcoming Tasks</h4>
@@ -83,6 +104,12 @@
                 </div>
             </div>
         </aside>
+
+<!-- 
+===========================================================================================
+                                        Modals
+===========================================================================================
+-->
     </div>
     <script src="script.js"></script>
 </body>
