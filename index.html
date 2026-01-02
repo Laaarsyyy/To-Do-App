@@ -44,8 +44,8 @@
                 <footer class="menuFooter">
 
                     <div class="colorPicker">
+                        <p>Accent Color:</p>
                         <input type="color" id="color" value="#FFD800">
-                        <label for="color" id="colorOutput">#FFD800</label>
                     </div>
 
                     <input class="darkmodeCheckbox" type="checkbox" id="darkModeToggle">
@@ -110,6 +110,29 @@
                                         Modals
 ===========================================================================================
 -->
+
+        <div class="addTaskModal">
+            <div class="addTaskModalContent">
+                <span class="closeAddTaskModal">&times;</span>
+                <h2>Add New Task</h2>
+                <form id="addTaskForm">
+                    <label for="taskName">Task Name:</label>
+                    <input type="text" id="taskName" name="taskName" required>
+
+                    <label for="taskDate">Due Date:</label>
+                    <input type="date" id="taskDate" name="taskDate" required>
+
+                    <label for="taskList">Select List:</label>
+                    <select id="taskList" name="taskList">
+                        <option value="today">Today</option>
+                        <option value="calendar">Calendar</option>
+                    </select>
+
+                    <button type="submit">Add Task</button>
+                </form>
+            </div>
+
+        </div>
     </div>
     <script src="script.js"></script>
 </body>

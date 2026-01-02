@@ -191,7 +191,13 @@ nav {
 }
 
 .colorPicker {
+    display: flex;
     margin-right: 20px;
+}
+
+#color {
+    border: none;
+    cursor: pointer;
 }
 
 .menuFooter .darkModeLabel {
@@ -338,6 +344,8 @@ nav {
     background-color: transparent;
     border: 1px solid var(--border-color);
     border-radius: 5px;
+    cursor: pointer;
+    z-index: 5;
 }
 
 .addTaskButton i {
@@ -434,3 +442,23 @@ nav {
     color: #000000;
 }
 
+/*
+===========================================================================================
+                                        Modals Section
+===========================================================================================
+*/
+
+.addTaskModal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: row;
+}
+
+#addTaskForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
