@@ -193,11 +193,13 @@ nav {
 .colorPicker {
     display: flex;
     margin-right: 20px;
+    align-items: center;
 }
 
 #color {
     border: none;
     cursor: pointer;
+    background-color: transparent;
 }
 
 .menuFooter .darkModeLabel {
@@ -457,8 +459,66 @@ nav {
     flex-direction: row;
 }
 
-#addTaskForm {
+.addTaskModal {
+    border: 1px solid var(--secondary-text-color);
+    border-radius: 20px;
+    background-color: var(--secondary-bg-color);
+    width: 400px;
+    height: 400px;
+    z-index: 20;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+}
+
+.modalHeader {
+    margin: 0.1px 1px 1px 0.1px;
+    border-radius: 19px;
+    background-color: var(--primary-color);
+    width: 100%;
+    height: 60px;
+    display: flex;
     align-items: center;
+    justify-content: space-between;
+    padding: 0 30px 0 20px;
+    box-shadow: #3a3b3c 0px 3px 10px;
+}
+
+.modalLogo {
+    width: 50px;
+}
+
+.modalHeader i {
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.addTaskForm {
+    font-family: 'outfit', sans-serif;
+    font-weight: 200;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    color: var(--secondary-text-color);
+}
+
+.addTaskForm input {
+    font-family: 'outfit', sans-serif;
+    border: none;
+    background-color: #ffffff;
+    color: #585858;
+    margin: 5px 0px 20px 10px;
+}
+
+#taskName {
+    height: 25px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#taskDescription {
+    height: 80px;
+    padding: 10px;
+    resize: none;
+    border-radius: 10px;
 }

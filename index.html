@@ -112,26 +112,25 @@
 -->
 
         <div class="addTaskModal">
+            <header class="modalHeader">
+                <img class="modalLogo" src="Assets/logoWhite.png" alt="">
+                <i class="fa-solid fa-x"></i>
+            </header>
             <div class="addTaskModalContent">
-                <span class="closeAddTaskModal">&times;</span>
-                <h2>Add New Task</h2>
-                <form id="addTaskForm">
+                <form class="addTaskForm">
                     <label for="taskName">Task Name:</label>
                     <input type="text" id="taskName" name="taskName" required>
 
-                    <label for="taskDate">Due Date:</label>
-                    <input type="date" id="taskDate" name="taskDate" required>
+                    <label for="taskDescription">Task Description:</label>
+                    <input type="text" id="taskDescription" name="taskDescription" required>
+                    
+                    <div class="dateInput">
+                        <label for="dueDate">Due Date:</label>
+                        <input type="date" id="dueDate" name="dueDate" required>
+                    </div>
 
-                    <label for="taskList">Select List:</label>
-                    <select id="taskList" name="taskList">
-                        <option value="today">Today</option>
-                        <option value="calendar">Calendar</option>
-                    </select>
-
-                    <button type="submit">Add Task</button>
                 </form>
             </div>
-
         </div>
     </div>
     <script src="script.js"></script>
