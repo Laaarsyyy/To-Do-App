@@ -122,13 +122,20 @@
                     <input type="text" id="taskName" name="taskName" required>
 
                     <label for="taskDescription">Task Description:</label>
-                    <input type="text" id="taskDescription" name="taskDescription" required>
+                    <textarea type="text" id="taskDescription" name="taskDescription" required> </textarea>
                     
                     <div class="dateInput">
-                        <label for="dueDate">Due Date:</label>
-                        <input type="date" id="dueDate" name="dueDate" required>
+                        <label for="deadline">Deadline:</label>
+                        <input type="time" id="deadline" name="deadline" value="12:00" required>
                     </div>
 
+                    <div class="listInput">
+                        <label for="listSelect">List:</label>
+                        <select id="listSelect">
+                            <option value="" disabled selected hidden>Choose an option</option>
+                            <option value="addList">&#x2B; Add List</option>
+                        </select>
+                    </div>
                 </form>
             </div>
         </div>

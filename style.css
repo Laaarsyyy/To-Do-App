@@ -507,18 +507,26 @@ nav {
     border: none;
     background-color: #ffffff;
     color: #585858;
-    margin: 5px 0px 20px 10px;
 }
 
 #taskName {
     height: 25px;
     padding: 10px;
     border-radius: 5px;
+    margin: 5px 0px 20px 10px;
 }
 
 #taskDescription {
+    margin: 5px 0px 20px 10px;
+    border: none;
+    resize: none;
     height: 80px;
     padding: 10px;
-    resize: none;
     border-radius: 10px;
+}
+
+#deadline {
+    height: 25px;
+    padding: 0px 5px 0px 5px;
+    border-radius: 5px;
 }
