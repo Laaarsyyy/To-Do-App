@@ -451,24 +451,23 @@ nav {
 */
 
 .addTaskModal {
+    transition: 0.5s ease;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
     flex-direction: row;
-}
-
-.addTaskModal {
     border: 1px solid var(--secondary-text-color);
     border-radius: 20px;
-    background-color: var(--secondary-bg-color);
-    width: 400px;
-    height: 400px;
+    background-color: var(--primary-bg-color);
+    width: 420px;
+    height: auto;
     z-index: 20;
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    filter: drop-shadow(-5px 5px 5px var(--shadow));
 }
 
 .modalHeader {
@@ -505,7 +504,7 @@ nav {
 .addTaskForm input {
     font-family: 'outfit', sans-serif;
     border: none;
-    background-color: #ffffff;
+    background-color: var(--secondary-bg-color);
     color: #585858;
 }
 
@@ -517,6 +516,7 @@ nav {
 }
 
 #taskDescription {
+    background-color: var(--secondary-bg-color);
     margin: 5px 0px 20px 10px;
     border: none;
     resize: none;
@@ -526,7 +526,111 @@ nav {
 }
 
 #deadline {
-    height: 25px;
+    height: 30px;
     padding: 0px 5px 0px 5px;
     border-radius: 5px;
+}
+/*
+========================================
+       List Section
+========================================
+*/
+
+.listInput {
+    margin-top: 10px;
+}
+
+#listSelect {
+    font-family: "Outfit", sans-serif;
+    height: 30px;
+    padding: 0px 5px 0px 5px;
+    border-radius: 5px;
+    border: none;
+    color: var(--text-color);
+    outline: none;
+    background-color: var(--secondary-bg-color);
+
+}
+
+#listSelect option {
+    font-family: "Outfit", sans-serif;
+    color: var(--text-color);
+    border: none;
+    outline: none;
+}
+
+.addList {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+.addList input {
+    height: 30px;
+    border-radius: 5px;
+}
+
+#addListBtn {
+    color: black;
+    font-family: "Outfit", sans-serif;
+    margin-left: 5px;
+    background-color: var(--primary-color);
+    border: none;
+    height: 30px;
+    width: 40px;
+    border-radius: 5px;
+}
+
+#cancelListBtn {
+    color: var(--text-color);
+    font-family: "Outfit", sans-serif;
+    border: none;
+    height: 30px;
+    width: 50px;
+    border-radius: 5px;
+    background-color: var(--secondary-bg-color);
+}
+
+/*
+========================================
+       Modal Button Section
+========================================
+*/
+
+.modalBtns {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.cancelTaskBtn {
+    color: var(--text-color);
+    font-family: "Outfit", sans-serif;
+    border: none;
+    height: 30px;
+    width: 50px;
+    border-radius: 5px;
+    background-color: var(--secondary-bg-color);
+
+}
+
+.saveTaskBtn {
+    color: black;
+    font-family: "Outfit", sans-serif;
+    margin-left: 5px;
+    background-color: var(--primary-color);
+    border: none;
+    height: 30px;
+    width: 70px;
+    border-radius: 5px;
+}
+
+.closed {
+    display: none;
+}
+
+.open {
+    display: flex;
 }

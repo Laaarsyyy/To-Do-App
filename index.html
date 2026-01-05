@@ -79,9 +79,6 @@
             </div>
             <ul class="tasks">
                 <li id="task"><p><input type="checkbox"/>Maglinis ng kwarto</p><i class="fa-solid fa-angle-right"></i></li>
-                <li id="task"><p><input type="checkbox"/>Maglinis ng kwarto</p><i class="fa-solid fa-angle-right"></i></li>
-                <li id="task"><p><input type="checkbox"/>Maglinis ng kwarto</p><i class="fa-solid fa-angle-right"></i></li>
-                <li id="task"><p><input type="checkbox"/>Maglinis ng kwarto</p><i class="fa-solid fa-angle-right"></i></li>
             </ul>
         </section>
 
@@ -96,11 +93,11 @@
             </header>
             <div class="sticky-container">
                 <div class="sticky-note">
-                    <p>Mag-iingat ikaw ha</p>
+                    <p>Lars Anthony</p>
                 </div>
 
                 <div class="sticky-note">
-                    <p>Bebe time tayo mamaya</p>
+                    <p>eL</p>
                 </div>
             </div>
         </aside>
@@ -111,10 +108,10 @@
 ===========================================================================================
 -->
 
-        <div class="addTaskModal">
+        <div class="addTaskModal closed">
             <header class="modalHeader">
                 <img class="modalLogo" src="Assets/logoWhite.png" alt="">
-                <i class="fa-solid fa-x"></i>
+                <i class="fa-solid fa-x" id="addTaskcloseModal"></i>
             </header>
             <div class="addTaskModalContent">
                 <form class="addTaskForm">
@@ -133,8 +130,21 @@
                         <label for="listSelect">List:</label>
                         <select id="listSelect">
                             <option value="" disabled selected hidden>Choose an option</option>
-                            <option value="addList">&#x2B; Add List</option>
+                            <option value="addList">+ Add List</option>
                         </select>
+                    </div>
+
+                    <div class="addList">
+                        <label for="newListName">List Name:</label>
+                        <input type="text" id="newListName" name="newListName">
+                        <button id="addListBtn">Add</button>
+                        <button id="cancelListBtn">Cancel</button>
+                    </div>
+
+                    <div class="modalBtns">
+                        <button type="button" class="cancelTaskBtn">Cancel</button>
+                        <button type="submit" class="saveTaskBtn">Save Task</button>
+
                     </div>
                 </form>
             </div>
