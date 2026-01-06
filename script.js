@@ -4,7 +4,7 @@
 ========================================
 */
 
-const toggleDarkMode =document.getElementById('darkModeToggle');
+const toggleDarkMode = document.getElementById('darkModeToggle');
 
 toggleDarkMode.addEventListener('change', () => {
     document.body.classList.toggle('darkMode', toggleDarkMode.checked);
@@ -30,10 +30,12 @@ colorPicker.addEventListener('input', () => {
 const listSelect = document.getElementById('listSelect');
 const addListField = document.querySelector('.addListField');
 const cancelListBtn = document.getElementById('cancelListBtn');
+const newListName = document.getElementById('newListName');
 
 listSelect.addEventListener('change', () => {
     if (listSelect.value === 'addList') {
         addListField.style.display = 'flex';
+        newListName.focus();
     }
 });
 
@@ -42,6 +44,30 @@ cancelListBtn.addEventListener('click', () => {
     listSelect.value = '';
 });
 
+/*
+========================================
+            Adding Task
+========================================
+*/
+const taskNameInput = document.getElementById('taskName');
+const saveTaskBtn = document.querySelector('.saveTaskBtn');
+
+saveTaskBtn.addEventListener('click', () => {
+    const taskName = taskNameInput.value.trim();
+    if (taskName === '') return; {
+        taskNameInput.value = '';
+    }
+
+    const tasks = document.querySelector('.tasks');
+    const taskItem = document.createElement('li');
+    taskItem.setAttribute('id', 'task');
+    taskItem.innerHTML = `
+    <p><input type="checkbox"/>${taskName}</p><i 
+    class="fa-solid fa-angle-right"></i>
+    `;
+    tasks.appendChild(taskItem);
+    toggleModal();
+});
 /*
 ========================================
         Opening and closing modal

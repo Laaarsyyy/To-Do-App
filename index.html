@@ -78,7 +78,6 @@
                 <button class="addTaskButton"><i class="fa-solid fa-plus"></i> Add Task</button>
             </div>
             <ul class="tasks">
-                <li id="task"><p><input type="checkbox"/>Maglinis ng kwarto</p><i class="fa-solid fa-angle-right"></i></li>
             </ul>
         </section>
 
@@ -108,7 +107,7 @@
 ===========================================================================================
 -->
 
-        <div class="addTaskModal open">
+        <div class="addTaskModal">
             <header class="modalHeader">
                 <img class="modalLogo" src="Assets/logoWhite.png" alt="">
                 <i class="fa-solid fa-x" id="addTaskcloseModal"></i>
@@ -119,7 +118,7 @@
                     <input type="text" id="taskName" name="taskName" required>
 
                     <label for="taskDescription">Task Description:</label>
-                    <textarea type="text" id="taskDescription" name="taskDescription" required> </textarea>
+                    <textarea type="text" id="taskDescription" name="taskDescription"> </textarea>
                     
                     <div class="dateInput">
                         <label for="deadline">Deadline:</label>
@@ -144,7 +143,6 @@
                     <div class="modalBtns">
                         <button type="button" class="cancelTaskBtn">Cancel</button>
                         <button type="submit" class="saveTaskBtn">Save Task</button>
-
                     </div>
                 </form>
             </div>
