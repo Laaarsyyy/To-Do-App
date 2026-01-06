@@ -451,11 +451,12 @@ nav {
 */
 
 .addTaskModal {
-    transition: 0.5s ease;
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(0.95);
+    opacity: 0;
+    visibility: hidden;
     display: flex;
     flex-direction: row;
     border: 1px solid var(--secondary-text-color);
@@ -559,8 +560,8 @@ nav {
     outline: none;
 }
 
-.addList {
-    display: flex;
+.addListField {
+    display: none;
     align-items: center;
     margin-top: 10px;
     gap: 10px;
@@ -580,6 +581,7 @@ nav {
     height: 30px;
     width: 40px;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 #cancelListBtn {
@@ -590,6 +592,7 @@ nav {
     width: 50px;
     border-radius: 5px;
     background-color: var(--secondary-bg-color);
+    cursor: pointer;
 }
 
 /*
@@ -613,6 +616,7 @@ nav {
     width: 50px;
     border-radius: 5px;
     background-color: var(--secondary-bg-color);
+    cursor: pointer;
 
 }
 
@@ -625,12 +629,12 @@ nav {
     height: 30px;
     width: 70px;
     border-radius: 5px;
+    cursor: pointer;
 }
 
-.closed {
-    display: none;
-}
 
-.open {
-    display: flex;
+.addTaskModal.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
 }

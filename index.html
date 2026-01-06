@@ -108,7 +108,7 @@
 ===========================================================================================
 -->
 
-        <div class="addTaskModal closed">
+        <div class="addTaskModal open">
             <header class="modalHeader">
                 <img class="modalLogo" src="Assets/logoWhite.png" alt="">
                 <i class="fa-solid fa-x" id="addTaskcloseModal"></i>
@@ -128,13 +128,13 @@
 
                     <div class="listInput">
                         <label for="listSelect">List:</label>
-                        <select id="listSelect">
+                        <select id="listSelect" value="">
                             <option value="" disabled selected hidden>Choose an option</option>
                             <option value="addList">+ Add List</option>
                         </select>
                     </div>
 
-                    <div class="addList">
+                    <div class="addListField">
                         <label for="newListName">List Name:</label>
                         <input type="text" id="newListName" name="newListName">
                         <button id="addListBtn">Add</button>
