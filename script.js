@@ -72,9 +72,9 @@ const renderTasks = () => {
         const taskItem = document.createElement('li');
         taskItem.classList.add('task-item');
         taskItem.dataset.id = task.id;
+        taskItem.classList.toggle('completed', task.completed);
         taskItem.innerHTML = `
-            <p><input type="checkbox" ${task.completed ? 'checked' : ''}/> ${task.name}</p>
-            <i class="fa-solid fa-trash delete-task" title="Delete"></i>
+            <p><i class="fa-solid fa-trash-can delete-task" title="Delete"></i> ${task.name}</p>
         `;
         tasksList.appendChild(taskItem);
     });
@@ -93,17 +93,18 @@ saveTaskBtn.addEventListener('click', () => {
     taskNameInput.value = '';
 });
 
-// checkbox and delete handlers (event delegation)
-tasksList.addEventListener('change', (e) => {
-    if (e.target.matches('input[type="checkbox"]')) {
-        const item = e.target.closest('li');
-        const id = item.dataset.id;
-        const tasks = getTasksFromStorage();
-        const task = tasks.find(t => t.id === id);
-        if (task) {
-            task.completed = e.target.checked;
-            saveTasksToStorage(tasks);
-        }
+// double-click to toggle completed
+tasksList.addEventListener('dblclick', (e) => {
+    if (e.target.matches('.delete-task')) return; // ignore dblclicks on delete icon
+    const item = e.target.closest('li');
+    if (!item) return;
+    const id = item.dataset.id;
+    const tasks = getTasksFromStorage();
+    const task = tasks.find(t => t.id === id);
+    if (task) {
+        task.completed = !task.completed;
+        saveTasksToStorage(tasks);
+        renderTasks();
     }
 });
 

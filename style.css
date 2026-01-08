@@ -376,13 +376,14 @@ nav {
     display: flex;
     justify-content: space-between;
 }
+.task-item p i {
+    margin-right: 15px;
+    color: red;
+    border: 1px solid var(--border-color);
+    padding: 8px;
+    font-size: 15px;
+    cursor: pointer;
 
-#task input[type="checkbox"] {
-    accent-color: var(--primary-color);
-    color: var(--text-color);
-    margin-right: 20px;
-    width: 15px;
-    height: 15px;
 }
 
 
@@ -393,6 +394,12 @@ nav {
 .tasks p {
     margin-left: 10px;
     font-size: 20px;
+}
+
+.completed {
+    opacity: 0.6;
+    text-decoration: line-through;
+    color: rgb(187, 187, 187);
 }
 
 
