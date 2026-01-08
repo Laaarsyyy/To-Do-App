@@ -527,6 +527,7 @@ nav {
 }
 
 #deadline {
+    color: var(--text-color);
     height: 30px;
     padding: 0px 5px 0px 5px;
     border-radius: 5px;
@@ -541,23 +542,19 @@ nav {
     margin-top: 10px;
 }
 
-#listSelect {
-    font-family: "Outfit", sans-serif;
-    height: 30px;
-    padding: 0px 5px 0px 5px;
-    border-radius: 5px;
-    border: none;
+#addList {
+    width: auto;
+    padding: 0px 10px 0px 10px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background-color: var(--primary-bg-color);
     color: var(--text-color);
-    outline: none;
-    background-color: var(--secondary-bg-color);
-
+    cursor: pointer;
+    font-family: 'outfit', sans-serif;
 }
 
-#listSelect option {
-    font-family: "Outfit", sans-serif;
-    color: var(--text-color);
-    border: none;
-    outline: none;
+#addList:hover {
+    background-color: var(--secondary-bg-color);
 }
 
 .addListField {
