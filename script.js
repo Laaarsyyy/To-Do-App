@@ -65,6 +65,14 @@ const saveTasksToStorage = (tasks) => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
 };
 
+const updateTaskCounter = () => {
+    const menuTodayTaskCounter = document.querySelector('.menuTodayTaskCounter');
+    const todayTaskCount = document.querySelector('.todayTaskCount');
+    const count = tasksList ? tasksList.children.length : 0;
+    if (todayTaskCount) todayTaskCount.textContent = count;
+    if (menuTodayTaskCounter) menuTodayTaskCounter.textContent = count;
+};
+
 const renderTasks = () => {
     const tasks = getTasksFromStorage();
     tasksList.innerHTML = '';
@@ -78,6 +86,7 @@ const renderTasks = () => {
         `;
         tasksList.appendChild(taskItem);
     });
+    updateTaskCounter();
 };
 
 // Add task
@@ -95,7 +104,7 @@ saveTaskBtn.addEventListener('click', () => {
 
 // double-click to toggle completed
 tasksList.addEventListener('dblclick', (e) => {
-    if (e.target.matches('.delete-task')) return; // ignore dblclicks on delete icon
+    if (e.target.matches('.delete-task')) return;
     const item = e.target.closest('li');
     if (!item) return;
     const id = item.dataset.id;
@@ -118,6 +127,8 @@ tasksList.addEventListener('click', (e) => {
         renderTasks();
     }
 });
+
+
 
 // Render on load
 document.addEventListener('DOMContentLoaded', renderTasks);
