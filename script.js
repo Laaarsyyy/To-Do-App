@@ -78,11 +78,11 @@ const renderTasks = () => {
     tasksList.innerHTML = '';
     tasks.forEach(task => {
         const taskItem = document.createElement('li');
-        taskItem.classList.add('task-item');
+        taskItem.setAttribute('id', 'task');
         taskItem.dataset.id = task.id;
         taskItem.classList.toggle('completed', task.completed);
         taskItem.innerHTML = `
-            <p><i class="fa-solid fa-trash-can delete-task" title="Delete"></i> ${task.name}</p>
+            <p><i class="fa-solid fa-trash-can delete-task" title="Delete"></i> ${task.name}</p><i class="fa-solid fa-angle-right chevronRight"></i>
         `;
         tasksList.appendChild(taskItem);
     });
@@ -120,11 +120,37 @@ tasksList.addEventListener('dblclick', (e) => {
 tasksList.addEventListener('click', (e) => {
     if (e.target.matches('.delete-task')) {
         const item = e.target.closest('li');
+        if (!item) return;
         const id = item.dataset.id;
-        let tasks = getTasksFromStorage();
-        tasks = tasks.filter(t => t.id !== id);
-        saveTasksToStorage(tasks);
-        renderTasks();
+
+        // Add deleting class to trigger CSS transition
+        item.classList.add('deleting');
+        item.style.pointerEvents = 'none';
+
+        const removeTaskFromDOM = () => {
+            // remove from storage
+            let tasks = getTasksFromStorage();
+            tasks = tasks.filter(t => t.id !== id);
+            saveTasksToStorage(tasks);
+            // remove the element and update counters
+            if (item.parentNode) item.parentNode.removeChild(item);
+            updateTaskCounter();
+        };
+
+        const onTransitionEnd = (ev) => {
+            if (ev.target !== item) return;
+            item.removeEventListener('transitionend', onTransitionEnd);
+            removeTaskFromDOM();
+        };
+        item.addEventListener('transitionend', onTransitionEnd);
+
+        // Fallback in case transitionend doesn't fire
+        setTimeout(() => {
+            if (document.body.contains(item)) {
+                item.removeEventListener('transitionend', onTransitionEnd);
+                removeTaskFromDOM();
+            }
+        }, 600);
     }
 });
 

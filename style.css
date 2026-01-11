@@ -197,6 +197,9 @@ nav {
 }
 
 #color {
+    margin-left: 5px;
+    width: 30px;
+    height: 30px;
     border: none;
     cursor: pointer;
     background-color: transparent;
@@ -294,6 +297,7 @@ nav {
 */
 
 .mainSection {
+    overflow: hidden;
     font-family: 'Outfit', sans-serif;
     flex: 1;
     height: 85vh;
@@ -359,13 +363,22 @@ nav {
 }
 
 .tasks li {
+    padding: 10px 0px 10px 0px;
     color: var(--text-color);
     display: flex;
     align-items: center;
-    height: 7vh;
+    height: 7vh; /* keep a stable height while animating so it doesn't shift vertically */
     border-radius: none;
     list-style: none;
     border-top: 1px solid var(--border-color);
+    overflow: hidden;
+    transition: transform 2s ease, opacity 1s ease;
+}
+
+.tasks li.deleting {
+    transform: translateX(-100%);
+    opacity: 0;
+    pointer-events: none;
 }
 
 #task {
@@ -376,14 +389,22 @@ nav {
     display: flex;
     justify-content: space-between;
 }
-.task-item p i {
+
+.completed p {
+    transition: 0.3s ease;
+    transform: scale(0.98);
+    opacity: 0.6;
+    text-decoration: line-through;
+    color: rgb(187, 187, 187);
+}
+
+.delete-task {
     margin-right: 15px;
     color: red;
     border: 1px solid var(--border-color);
     padding: 8px;
     font-size: 15px;
     cursor: pointer;
-
 }
 
 
@@ -396,11 +417,7 @@ nav {
     font-size: 20px;
 }
 
-.completed {
-    opacity: 0.6;
-    text-decoration: line-through;
-    color: rgb(187, 187, 187);
-}
+
 
 
 /*
