@@ -38,7 +38,6 @@
 
                 <ul class="lists">
                     <p>LISTS</p>
-                    <li><i class="fa-regular fa-square-plus"></i>Add New List</li>
                 </ul>
 
                 <footer class="menuFooter">
@@ -126,8 +125,11 @@
                     </div>
 
                     <div class="listInput">
-                        <label for="listSelect">List:</label>
-                        <button type="button" id="addList"><i class="fa-solid fa-plus"></i> Add List</button>
+                        <label for="listButtons">List:</label>
+                        <div class="list-controls">
+                            <button type="button" id="addList"><i class="fa-solid fa-plus"></i> Add List</button>
+                            <div id="listButtons" class="listButtons" aria-label="lists"></div>
+                        </div>
                     </div>
 
                     <div class="addListField">
@@ -145,6 +147,8 @@
             </div>
         </div>
     </div>
+    <!-- Undo toast (populated dynamically) -->
+    <div id="undoToast" class="undoToast" aria-live="polite" style="display:none;"></div>
     <script src="script.js"></script>
 </body>
 </html>

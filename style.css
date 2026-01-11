@@ -157,7 +157,7 @@ nav {
 }
 
 .activeMenu {
-    background-color: var(--border-color);
+    background-color: transparent;
     font-weight: 700;
 }
 
@@ -177,9 +177,54 @@ nav {
 }
 
 .lists li {
+    font: 14px 'Outfit', sans-serif;
     cursor: pointer;
     margin: 3px 0 3px 10px;
     list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-right: 8px;
+}
+
+.lists li .delete-list {
+    margin-left: auto;
+    color: rgba(0,0,0,0.45);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.15s ease, color 0.15s ease;
+}
+
+.lists li:hover .delete-list {
+    opacity: 1;
+    color: #e74c3c;
+}
+
+/* Undo toast */
+.undoToast {
+    position: fixed;
+    left: 50%;
+    bottom: 28px;
+    transform: translateX(-50%);
+    background: var(--primary-bg-color);
+    color: var(--text-color);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    padding: 10px 14px;
+    border-radius: 8px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.undoToast .undoBtn {
+    background: transparent;
+    border: none;
+    color: var(--primary-color);
+    font-weight: 700;
+    cursor: pointer;
 }
 
 .menuFooter {
@@ -372,7 +417,7 @@ nav {
     list-style: none;
     border-top: 1px solid var(--border-color);
     overflow: hidden;
-    transition: transform 2s ease, opacity 1s ease;
+    transition: transform 1s ease, opacity 0.5s ease;
 }
 
 .tasks li.deleting {
@@ -567,14 +612,18 @@ nav {
 }
 
 #addList {
-    width: auto;
-    padding: 0px 10px 0px 10px;
-    border-radius: 10px;
-    border: 1px solid var(--border-color);
-    background-color: var(--primary-bg-color);
-    color: var(--text-color);
-    cursor: pointer;
     font-family: 'outfit', sans-serif;
+    border: 1px solid var(--border-color);
+    background: var(--primary-bg-color);
+    padding: 5px 5px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    justify-self: start;
+    color: var(--secondary-text-color);
 }
 
 #addList:hover {
@@ -591,6 +640,72 @@ nav {
 .addList input {
     height: 30px;
     border-radius: 5px;
+}
+
+/* List controls and inline list buttons (next to Add List) */
+.list-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center; /* center first row vertically with the Add List button */
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+#addList {
+    flex: 0 0 auto; /* keep button size fixed so list buttons sit next to it */
+}
+
+.listButtons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex: 1 1 auto; /* take remaining space */
+    min-width: 0; /* allow shrinking in flex container */
+    flex-wrap: wrap; /* wrap buttons to next line when space is limited */
+    width: 100%;
+    margin-top: 0; /* keep first row aligned with Add List button */
+}
+
+.listButtons::-webkit-scrollbar {
+    height: 6px;
+}
+
+.listButtons::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.08);
+    border-radius: 6px;
+}
+
+.list-chip {
+    color: var(--secondary-text-color);
+    font-family: 'outfit', sans-serif;
+    border: 1px solid var(--border-color);
+    background: var(--primary-bg-color);
+    padding: 5px 5px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    justify-self: start;
+    margin-top: 6px; /* spacing when wrapping to new rows */
+}
+
+.list-chip.active {
+    background: var(--primary-color);
+    color: var(--secondary-text-color);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.none-chip {
+    opacity: 0.95;
+    font-style: italic;
+}
+
+.task-list {
+    color: rgba(0,0,0,0.5);
+    font-size: 0.85rem;
+    margin-left: 6px;
 }
 
 #addListBtn {
@@ -615,6 +730,8 @@ nav {
     background-color: var(--secondary-bg-color);
     cursor: pointer;
 }
+
+
 
 /*
 ========================================
