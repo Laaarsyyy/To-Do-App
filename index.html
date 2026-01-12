@@ -76,6 +76,35 @@
             <div class="taskContainer">
                 <button class="addTaskButton"><i class="fa-solid fa-plus"></i> Add Task</button>
             </div>
+            <div id="calendarView" class="calendarView" style="display:none;">
+                <div class="calendarControls">
+                    <input type="date" id="calendarDate">
+                    <button type="button" id="addTaskForDateBtn">Add Task for Date</button>
+                    <button id="openCalendarModalBtn" type="button">Open Calendar</button>
+                </div>
+                <ul id="calendarTaskList" class="calendarTaskList"></ul>
+            </div>
+
+            <!-- Month-grid calendar modal -->
+            <div id="calendarModal" class="calendar-modal" style="display:none;">
+                <div class="calendar-modal-backdrop"></div>
+                <div class="calendar-modal-content">
+                    <header class="calendar-modal-header">
+                        <button id="prevMonthBtn" type="button">◀</button>
+                        <h3 id="monthLabel">Month YYYY</h3>
+                        <button id="nextMonthBtn" type="button">▶</button>
+                        <button id="closeCalendarModal" type="button" class="closeBtn">✕</button>
+                    </header>
+                    <div class="calendar-weekdays" id="calendarWeekdays"></div>
+                    <div class="calendar-grid" id="calendarGrid"></div>
+                    <footer class="calendar-modal-footer">
+                        <div id="selectedDayTasks" class="selected-day-tasks"></div>
+                        <div class="calendar-actions">
+                            <button id="addTaskForDayBtn" type="button">Add Task for Selected Day</button>
+                        </div>
+                    </footer>
+                </div>
+            </div>
             <ul class="tasks">
             </ul>
         </section>
@@ -89,14 +118,12 @@
             <header class="upcomingHeader">
                 <h4>Upcoming Tasks</h4>
             </header>
-            <div class="sticky-container">
-                <div class="sticky-note">
-                    <p>Lars Anthony</p>
-                </div>
-
-                <div class="sticky-note">
-                    <p>eL</p>
-                </div>
+            <!-- sticky notes container (populated with upcoming tasks) -->
+            <div class="sticky-container" id="stickyContainer">
+                <!-- sticky-note elements will be added here by script -->
+            </div>
+            <div id="upcomingList" class="upcoming-list" style="display:none;">
+                <!-- kept for compatibility but hidden; sticky notes are the design -->
             </div>
         </aside>
 
@@ -121,7 +148,8 @@
                     
                     <div class="dateInput">
                         <label for="deadline">Deadline:</label>
-                        <input type="time" id="deadline" name="deadline" value="12:00" required>
+                        <input type="date" id="deadline" name="deadline">
+                        <input type="time" id="deadlineTime" name="deadlineTime" value="12:00" style="display:none;">
                     </div>
 
                     <div class="listInput">
@@ -135,6 +163,8 @@
                     <div class="addListField">
                         <label for="newListName">List Name:</label>
                         <input type="text" id="newListName" name="newListName">
+                        <label for="newListColor">Color:</label>
+                        <input type="color" id="newListColor" name="newListColor" value="#FFD800">
                         <button type="button" id="addListBtn">Add</button>
                         <button type="button" id="cancelListBtn">Cancel</button>
                     </div>

@@ -187,18 +187,42 @@ nav {
     padding-right: 8px;
 }
 
-.lists li .delete-list {
-    margin-left: auto;
-    color: rgba(0,0,0,0.45);
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.15s ease, color 0.15s ease;
-}
+	.lists li .list-color {
+		width: 18px;
+		height: 18px;
+		border-radius: 3px;
+		display: inline-block;
+		margin-right: 8px;
+		flex-shrink: 0;
+	}
+	.lists li input.list-color-picker {
+		-webkit-appearance: none;
+		appearance: none;
+		width: 25px;
+		height: 25px;
+		border: none;
+		padding: 0;
+		overflow: hidden;
+		cursor: pointer;
+		background: transparent;
+		vertical-align: middle;
+	}
+	/* Rounded swatch for WebKit browsers */
+	.lists li input.list-color-picker::-webkit-color-swatch-wrapper { padding: 0; border-radius: 5px; overflow: hidden; }
+	.lists li input.list-color-picker::-webkit-color-swatch { border-radius: 5px; border: none; }
+	/* Firefox */
+	.lists li input.list-color-picker::-moz-color-swatch { border-radius: 5px; border: none; }
 
-.lists li:hover .delete-list {
-    opacity: 1;
-    color: #e74c3c;
-}
+	.lists li input.list-color-picker:focus { outline: 2px solid rgba(0,0,0,0.08); }
+	.list-chip .list-chip-color {
+		width: 12px;
+		height: 12px;
+		display: inline-block;
+		margin-right: 8px;
+		vertical-align: middle;
+	}
+
+
 
 /* Undo toast */
 .undoToast {
@@ -241,13 +265,31 @@ nav {
     align-items: center;
 }
 
-#color {
+#color, #newListColor {
     margin-left: 5px;
     width: 30px;
     height: 30px;
     border: none;
     cursor: pointer;
     background-color: transparent;
+}
+
+.addListField {
+    display: none;
+    gap: 8px;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.addListField input[type="text"] {
+    width: 160px;
+    padding: 6px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+
+.addListField label {
+    margin-left: 8px;
 }
 
 .menuFooter .darkModeLabel {
@@ -482,6 +524,199 @@ nav {
     box-shadow: 3px 3px 10px var(--shadow);
 }
 
+.calendarView {
+    margin: 10px 0 16px 0;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--primary-bg-color);
+}
+
+/* Calendar modal (month grid) */
+.calendar-modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.calendar-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+}
+.calendar-modal-content {
+    position: relative;
+    width: 86%;
+    max-width: 880px; /* reduced size */
+    min-height: 520px; /* gentler height */
+    background: var(--primary-bg-color);
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    padding: 18px;
+    z-index: 61;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+@media (max-width: 900px) {
+    .calendar-modal-content { width: calc(100% - 24px); min-height: 420px; padding: 12px; }
+    .calendar-grid { grid-auto-rows: minmax(90px, auto); gap: 6px; }
+} .calendar-modal-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.calendar-modal-header .closeBtn { margin-left: auto; }
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px; /* small gap between weekday labels */
+    margin-bottom: 6px;
+}
+.calendar-weekdays .weekday {
+    text-align: center;
+    font-weight: 700;
+    padding: 2px 0 2px; /* compact weekday header */
+    font-size: 12.5px;
+    line-height: 1;
+    height: 20px;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px; /* tighten spacing further so weekdays sit closer to the dates */
+    grid-auto-rows: minmax(90px, auto);
+}
+
+.calendar-grid .day {
+    min-height: 90px; /* lower height so dates sit higher */
+    border-radius: 8px;
+    padding: 6px; /* slightly less padding so content sits closer to top */
+    background: var(--secondary-bg-color);
+    cursor: pointer;
+    color: var(--secondary-text-color);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.calendar-grid .day .date-num {
+    font-weight: 800;
+    font-size: 18px; /* larger date number */
+    line-height: 1;
+    margin-bottom: 8px; /* space between date and tasks */
+}
+.calendar-grid .day .tasks-count {
+    position: absolute;
+    right: 6px;
+    top: 6px;
+    background: var(--primary-color);
+    color: #fff;
+    padding: 2px 6px;
+    border-radius: 12px;
+    font-size: 12px;
+}
+.calendar-grid .day .day-tasks {
+    margin-top: 4px; /* bring tasks slightly closer to date */
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+@media (max-width: 900px) {
+    .calendar-grid .day .date-num { font-size: 16px; }
+}
+.calendar-grid .day .day-tasks .task-item {
+    font-size: 12px;
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.calendar-grid .day .day-tasks .task-more {
+    font-size: 12px;
+    color: var(--text-color);
+}
+.inline-add {
+    margin-top: 6px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+.inline-add input.inline-task-name {
+    flex: 1;
+    padding: 6px;
+    font-size: 13px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+.inline-add input.inline-task-time {
+    width: 85px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    padding: 6px;
+}
+.inline-add button.inline-save, .inline-add button.inline-cancel {
+    border: none;
+    padding: 6px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.inline-add button.inline-save { background: var(--primary-color); color: #000; }
+.inline-add button.inline-cancel { background: var(--secondary-bg-color); color: var(--text-color); }
+
+.selected-day {
+    box-shadow: 0 0 0 3px rgba(255,216,0,0.18);
+    outline: 2px solid rgba(255,216,0,0.25);
+}
+.selected-day-tasks { max-height: 120px; overflow: auto; }
+.calendar-actions { display:flex; justify-content:flex-end; }
+
+.calendarControls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.calendarTaskList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 250px;
+    overflow-y: auto;
+    border-top: 1px dashed var(--border-color);
+}
+
+.calendarTaskList li {
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.upcoming-list {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.upcoming-item {
+    background: var(--primary-bg-color);
+    border-radius: 8px;
+    padding: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+}
+
 .upcomingHeader {
     font-family: 'Outfit', sans-serif;
     display: flex;
@@ -531,7 +766,7 @@ nav {
     border: 1px solid var(--secondary-text-color);
     border-radius: 20px;
     background-color: var(--primary-bg-color);
-    width: 420px;
+    width: 520px;
     height: auto;
     z-index: 20;
     display: flex;
@@ -635,11 +870,6 @@ nav {
     align-items: center;
     margin-top: 10px;
     gap: 10px;
-}
-
-.addList input {
-    height: 30px;
-    border-radius: 5px;
 }
 
 /* List controls and inline list buttons (next to Add List) */
