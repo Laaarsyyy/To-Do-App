@@ -314,7 +314,7 @@ const renderTasks = () => {
         taskItem.dataset.id = task.id;
         taskItem.classList.toggle('completed', task.completed);
         const listLabel = task.listId ? ` <span class="task-list">(${getListNameById(task.listId)})</span>` : '';
-        const dueLabel = task.dueDate ? ` <span class="task-list">[${task.dueDate}${task.dueTime ? ' @'+task.dueTime : ''}]</span>` : '';
+        const dueLabel = task.dueDate ? ` <span class="task-list">[${task.dueDate}${task.dueTime ? ' @'+formatTime12(task.dueTime) : ''}]</span>` : '';
         taskItem.innerHTML = `
             <p><i class="fa-solid fa-trash-can delete-task" title="Delete"></i> ${task.name}${listLabel}${dueLabel}</p><i class="fa-solid fa-angle-right chevronRight"></i>
         `;
@@ -342,6 +342,12 @@ saveTaskBtn.addEventListener('click', (e) => {
         // date-mode (calendar)
         if (deadlineDateInput && deadlineDateInput.value) dueDate = deadlineDateInput.value;
     }
+    // prevent creating a task with a datetime in the past
+    if (dueDate && dueTime && isDateTimeInPast(dueDate, dueTime)) {
+        alert('Cannot set a task to a time that has already passed.');
+        return;
+    }
+
     const newTask = { id: Date.now().toString(), name: taskName, completed: false, listId: (selectedListId && !['__today__','__all__','__calendar__'].includes(selectedListId)) ? selectedListId : '', dueDate, dueTime };
     tasks.push(newTask);
     saveTasksToStorage(tasks);
@@ -538,7 +544,7 @@ const renderCalendarTasks = (dateISO) => {
     calendarTaskList.innerHTML = '';
     list.forEach(t => {
         const li = document.createElement('li');
-        li.textContent = `${t.name} ${t.dueTime ? '('+t.dueTime+')' : ''}`;
+        li.textContent = `${t.name} ${t.dueTime ? '('+formatTime12(t.dueTime)+')' : ''}`;
         calendarTaskList.appendChild(li);
     });
 };
@@ -565,6 +571,41 @@ function formatISODate(y,m,d) {
     const dd = String(d).padStart(2,'0');
     return `${y}-${mm}-${dd}`;
 }
+
+function formatTime12(timeStr) {
+    if (!timeStr) return '';
+    const s = String(timeStr).trim();
+    if (!s) return '';
+    const lowered = s.toLowerCase();
+    // already in am/pm format
+    if (lowered.includes('am') || lowered.includes('pm')) return s;
+    const parts = s.split(':');
+    if (parts.length < 2) return s;
+    let h = parseInt(parts[0], 10);
+    if (isNaN(h)) return s;
+    const m = parts[1].slice(0,2);
+    const ampm = h >= 12 ? 'pm' : 'am';
+    h = h % 12;
+    if (h === 0) h = 12;
+    return `${h}:${m} ${ampm}`;
+}
+
+function isDateTimeInPast(dateISO, timeStr) {
+    // returns true if the combined date and time is earlier than now
+    if (!dateISO || !timeStr) return false;
+    const s = String(timeStr).trim();
+    if (!s) return false;
+    let dt;
+    // handle times that may already be in am/pm format
+    if (s.toLowerCase().includes('am') || s.toLowerCase().includes('pm')) {
+        // Construct a parseable string like "YYYY-MM-DD h:mm am"
+        dt = new Date(`${dateISO} ${s}`);
+    } else {
+        // assume HH:MM (24h) form
+        dt = new Date(`${dateISO}T${s}:00`);
+    }
+    return dt.getTime() < Date.now();
+} 
 
 function openCalendarModal(dateISO) {
     const d = dateISO ? new Date(dateISO) : new Date();
@@ -615,7 +656,7 @@ function renderMonth(year, month) {
             // populate first 2 tasks names inside the cell
             const tasksContainer = cell.querySelector('.day-tasks');
             dayTasks.slice(0,2).forEach(t => {
-                const ti = document.createElement('div'); ti.className = 'task-item'; ti.textContent = (t.dueTime ? ('['+t.dueTime+'] ') : '') + t.name; tasksContainer.appendChild(ti);
+                const ti = document.createElement('div'); ti.className = 'task-item'; ti.textContent = (t.dueTime ? ('['+formatTime12(t.dueTime)+'] ') : '') + t.name; tasksContainer.appendChild(ti);
             });
             if (count > 2) {
                 const more = document.createElement('div'); more.className = 'task-more'; more.textContent = `+${count - 2}`; tasksContainer.appendChild(more);
@@ -647,7 +688,7 @@ function selectDay(dateISO) {
     tasks.forEach(t => {
         const div = document.createElement('div');
         div.className = 'upcoming-item';
-        div.textContent = `${t.dueTime ? ('['+t.dueTime+'] ') : ''}${t.name}`;
+        div.textContent = `${t.dueTime ? ('['+formatTime12(t.dueTime)+'] ') : ''}${t.name}`;
         selectedDayTasks.appendChild(div);
     });
 }
@@ -717,6 +758,11 @@ function openInlineAddInDay(dateISO) {
         const tasks = getTasksFromStorage();
         const dueDate = dateISO;
         const dueTime = timeInput.value || null;
+        // prevent creating a task with a datetime in the past
+        if (dueDate && dueTime && isDateTimeInPast(dueDate, dueTime)) {
+            alert('Cannot set a task to a time that has already passed.');
+            return;
+        }
         const newTask = { id: Date.now().toString(), name, completed: false, listId: '', dueDate, dueTime };
         tasks.push(newTask);
         saveTasksToStorage(tasks);
@@ -771,7 +817,7 @@ function renderUpcoming() {
         const p = document.createElement('p');
         p.textContent = t.name;
         const meta = document.createElement('small');
-        meta.textContent = `${t.dueDate}${t.dueTime ? ' @ ' + t.dueTime : ''}`;
+        meta.textContent = `${t.dueDate}${t.dueTime ? ' @ ' + formatTime12(t.dueTime) : ''}`;
         note.appendChild(p);
         note.appendChild(meta);
         stickyContainer.appendChild(note);

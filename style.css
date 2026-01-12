@@ -539,7 +539,7 @@ nav {
     top: 0;
     width: 100%;
     height: 100%;
-    z-index: 60;
+    z-index: 10000 !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -548,16 +548,18 @@ nav {
     position: absolute;
     inset: 0;
     background: rgba(0,0,0,0.4);
+    z-index: 9999 !important;
 }
 .calendar-modal-content {
     position: relative;
-    width: 86%;
-    max-width: 880px; /* reduced size */
-    min-height: 520px; /* gentler height */
+    width: 100%;
+    max-width: 1200px; /* reduced size */
+    min-height: auto; /* gentler height */
     background: var(--primary-bg-color);
     border-radius: 12px;
     box-shadow: 0 8px 30px rgba(0,0,0,0.15);
     padding: 18px;
+    z-index: 10001 !important;
     z-index: 61;
     display: flex;
     flex-direction: column;
@@ -566,19 +568,42 @@ nav {
 
 @media (max-width: 900px) {
     .calendar-modal-content { width: calc(100% - 24px); min-height: 420px; padding: 12px; }
-    .calendar-grid { grid-auto-rows: minmax(90px, auto); gap: 6px; }
-} .calendar-modal-header {
+    .calendar-grid { grid-auto-rows: minmax(120px, auto); gap: 6px; }
+}
+.calendar-modal-header {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 .calendar-modal-header .closeBtn { margin-left: auto; }
 .calendar-weekdays {
+    color: var(--text-color);
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 4px; /* small gap between weekday labels */
     margin-bottom: 6px;
 }
+
+.prevNextMontBtn {
+    color: var(--text-color);
+    background: none;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#closeCalendarModal {
+    color: var(--text-color);
+    background: none;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
 .calendar-weekdays .weekday {
     text-align: center;
     font-weight: 700;
@@ -592,7 +617,7 @@ nav {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 4px; /* tighten spacing further so weekdays sit closer to the dates */
-    grid-auto-rows: minmax(90px, auto);
+    grid-auto-rows: minmax(100px, auto);
 }
 
 .calendar-grid .day {
@@ -678,6 +703,16 @@ nav {
 }
 .selected-day-tasks { max-height: 120px; overflow: auto; }
 .calendar-actions { display:flex; justify-content:flex-end; }
+
+#addTaskForDayBtn {
+    background: var(--primary-color);
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: var(--secondary-text-color);
+    font-weight: 700;
+}
 
 .calendarControls {
     display: flex;
@@ -810,7 +845,7 @@ nav {
     font-family: 'outfit', sans-serif;
     border: none;
     background-color: var(--secondary-bg-color);
-    color: #585858;
+    color: var(--secondary-text-color);
 }
 
 #taskName {
