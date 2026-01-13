@@ -84,12 +84,14 @@ const renderLists = () => {
         });
     }
 
-    // render menu lists (clear previous except header) and add a 'None' item
+    // render menu lists (clear previous except header) and add a 'None' item with counts
     if (listsMenu) {
+        const tasks = getTasksFromStorage();
         listsMenu.innerHTML = '<p>LISTS</p>';
         const noneLi = document.createElement('li');
         noneLi.dataset.id = '';
-        noneLi.textContent = 'None';
+        const noneCount = tasks.filter(t => !t.listId).length;
+        noneLi.innerHTML = `None <span class="list-count">${noneCount}</span>`;
         if (selectedListId === '') noneLi.classList.add('activeMenu');
         listsMenu.appendChild(noneLi);
 
@@ -97,7 +99,9 @@ const renderLists = () => {
             const li = document.createElement('li');
             li.dataset.id = list.id;
             const color = list.color || colorPicker.value || getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim();
-            li.innerHTML = `<input type="color" class="list-color-picker" value="${color}" title="Change color"><span class="list-name">${list.name}</span><i class="fa-solid fa-trash delete-list" title="Delete"></i>`;
+            const count = tasks.filter(t => t.listId === list.id).length;
+            // place delete icon before the count so the number stays aligned to the right
+            li.innerHTML = `<input type="color" class="list-color-picker" value="${color}" title="Change color"><span class="list-name">${list.name}</span><i class="fa-solid fa-trash delete-list" title="Delete"></i><span class="list-count">${count}</span>`;
             if (list.id === selectedListId) li.classList.add('activeMenu');
             listsMenu.appendChild(li);
         });
@@ -421,6 +425,7 @@ const renderTasks = () => {
     updateTaskCounter();
     // refresh upcoming panel
     renderUpcoming();
+    renderLists();
 };
 
 // Add task
