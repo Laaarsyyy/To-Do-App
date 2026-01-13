@@ -265,6 +265,7 @@ if (listsMenu) {
 ========================================
 */
 const taskNameInput = document.getElementById('taskName');
+const taskDescriptionInput = document.getElementById('taskDescription');
 const saveTaskBtn = document.querySelector('.saveTaskBtn');
 const tasksList = document.querySelector('.tasks');
 
@@ -313,11 +314,108 @@ const renderTasks = () => {
         taskItem.setAttribute('id', 'task');
         taskItem.dataset.id = task.id;
         taskItem.classList.toggle('completed', task.completed);
-        const listLabel = task.listId ? ` <span class="task-list">(${getListNameById(task.listId)})</span>` : '';
-        const dueLabel = task.dueDate ? ` <span class="task-list">[${task.dueDate}${task.dueTime ? ' @'+formatTime12(task.dueTime) : ''}]</span>` : '';
-        taskItem.innerHTML = `
-            <p><i class="fa-solid fa-trash-can delete-task" title="Delete"></i> ${task.name}${listLabel}${dueLabel}</p><i class="fa-solid fa-angle-right chevronRight"></i>
-        `;
+
+        // summary row
+        const summary = document.createElement('div');
+        summary.className = 'task-summary';
+        const p = document.createElement('p');
+        p.innerHTML = `<i class="fa-solid fa-trash-can delete-task" title="Delete"></i> ${task.name}`;
+        if (task.listId) {
+            const span = document.createElement('span');
+            span.className = 'task-list';
+            span.textContent = `(${getListNameById(task.listId)})`;
+            p.appendChild(span);
+        }
+        if (task.dueDate) {
+            const span2 = document.createElement('span');
+            span2.className = 'task-list';
+            span2.textContent = `[${task.dueDate}${task.dueTime ? ' @'+formatTime12(task.dueTime) : ''}]`;
+            p.appendChild(span2);
+        }
+        summary.appendChild(p);
+        const chevron = document.createElement('i');
+        chevron.className = 'fa-solid fa-angle-right chevronRight';
+        summary.appendChild(chevron);
+
+        // details row (hidden by default)
+        const details = document.createElement('div');
+        details.className = 'task-details';
+        details.style.display = 'none';
+
+        // name input
+        const nameLabel = document.createElement('label');
+        nameLabel.innerHTML = 'Name: ';
+        const nameInput = document.createElement('input');
+        nameInput.className = 'edit-name';
+        nameInput.type = 'text';
+        nameInput.value = task.name || '';
+        nameLabel.appendChild(nameInput);
+        details.appendChild(nameLabel);
+
+        // description
+        const descLabel = document.createElement('label');
+        descLabel.className = 'desc-field';
+        descLabel.innerHTML = 'Description: ';
+        const descInput = document.createElement('textarea');
+        descInput.className = 'edit-desc';
+        descInput.value = task.description || '';
+        descLabel.appendChild(descInput);
+        details.appendChild(descLabel);
+
+        // date/time
+        const dateLabel = document.createElement('label');
+        dateLabel.innerHTML = 'Date: ';
+        const dateInput = document.createElement('input');
+        dateInput.type = 'date';
+        dateInput.className = 'edit-date';
+        dateInput.value = task.dueDate || '';
+        dateLabel.appendChild(dateInput);
+        details.appendChild(dateLabel);
+        const timeLabel = document.createElement('label');
+        timeLabel.innerHTML = 'Time: ';
+        const timeInput = document.createElement('input');
+        timeInput.type = 'time';
+        timeInput.className = 'edit-time';
+        timeInput.value = task.dueTime || '';
+        timeLabel.appendChild(timeInput);
+        details.appendChild(timeLabel);
+
+        // list select
+        const listLabelEl = document.createElement('label');
+        listLabelEl.innerHTML = 'List: ';
+        const listSelect = document.createElement('select');
+        listSelect.className = 'edit-list';
+        const noneOpt = document.createElement('option');
+        noneOpt.value = '';
+        noneOpt.textContent = 'None';
+        listSelect.appendChild(noneOpt);
+        getListsFromStorage().forEach(l => {
+            const opt = document.createElement('option');
+            opt.value = l.id;
+            opt.textContent = l.name;
+            if (l.id === task.listId) opt.selected = true;
+            listSelect.appendChild(opt);
+        });
+        listLabelEl.appendChild(listSelect);
+        details.appendChild(listLabelEl);
+
+        // buttons
+        const btns = document.createElement('div');
+        btns.className = 'details-buttons';
+        const saveBtn = document.createElement('button');
+        saveBtn.type = 'button';
+        saveBtn.className = 'save-edits';
+        saveBtn.textContent = 'Save';
+        const cancelBtn = document.createElement('button');
+        cancelBtn.type = 'button';
+        cancelBtn.className = 'cancel-edits';
+        cancelBtn.textContent = 'Cancel';
+        btns.appendChild(saveBtn);
+        btns.appendChild(cancelBtn);
+        details.appendChild(btns);
+
+        taskItem.appendChild(summary);
+        taskItem.appendChild(details);
         tasksList.appendChild(taskItem);
     });
     updateTaskCounter();
@@ -348,7 +446,7 @@ saveTaskBtn.addEventListener('click', (e) => {
         return;
     }
 
-    const newTask = { id: Date.now().toString(), name: taskName, completed: false, listId: (selectedListId && !['__today__','__all__','__calendar__'].includes(selectedListId)) ? selectedListId : '', dueDate, dueTime };
+    const newTask = { id: Date.now().toString(), name: taskName, description: (taskDescriptionInput && taskDescriptionInput.value.trim()) ? taskDescriptionInput.value.trim() : '', completed: false, listId: (selectedListId && !['__today__','__all__','__calendar__'].includes(selectedListId)) ? selectedListId : '', dueDate, dueTime };
     tasks.push(newTask);
     saveTasksToStorage(tasks);
     renderTasks();
@@ -357,6 +455,7 @@ saveTaskBtn.addEventListener('click', (e) => {
     if (calendarView && calendarView.style.display === 'block') renderCalendarTasks(selectedCalendarDate);
     toggleModal();
     taskNameInput.value = '';
+    if (taskDescriptionInput) taskDescriptionInput.value = ''; 
 });
 
 // double-click to toggle completed
@@ -377,6 +476,7 @@ tasksList.addEventListener('dblclick', (e) => {
 });
 
 tasksList.addEventListener('click', (e) => {
+    // Delete task
     if (e.target.matches('.delete-task')) {
         const item = e.target.closest('li');
         if (!item) return;
@@ -415,6 +515,69 @@ tasksList.addEventListener('click', (e) => {
                 removeTaskFromDOM();
             }
         }, 600);
+        return;
+    }
+
+    // Toggle details panel when clicking summary or chevron
+    if (e.target.matches('.chevronRight') || e.target.closest('.task-summary')) {
+        const item = e.target.closest('li');
+        if (!item) return;
+        const details = item.querySelector('.task-details');
+        if (!details) return;
+        const isOpen = item.classList.toggle('open');
+        // close other opened items
+        document.querySelectorAll('.tasks li.open').forEach(other => {
+            if (other !== item) {
+                other.classList.remove('open');
+                const d = other.querySelector('.task-details');
+                if (d) d.style.display = 'none';
+            }
+        });
+        details.style.display = isOpen ? 'block' : 'none';
+        return;
+    }
+
+    // Save edits
+    if (e.target.matches('.save-edits')) {
+        const item = e.target.closest('li');
+        if (!item) return;
+        const id = item.dataset.id;
+        const tasks = getTasksFromStorage();
+        const task = tasks.find(t => t.id === id);
+        if (!task) return;
+        const name = item.querySelector('.edit-name').value.trim();
+        const desc = item.querySelector('.edit-desc').value.trim();
+        const date = item.querySelector('.edit-date').value || null;
+        const time = item.querySelector('.edit-time').value || null;
+        const newListId = item.querySelector('.edit-list').value || '';
+
+        if (name === '') return alert('Task name cannot be empty.');
+
+        if (date && time && isDateTimeInPast(date, time)) {
+            alert('Cannot set task to a time that has already passed.');
+            return;
+        }
+
+        task.name = name;
+        task.description = desc;
+        task.dueDate = date;
+        task.dueTime = time;
+        task.listId = newListId;
+        saveTasksToStorage(tasks);
+        renderTasks();
+        renderUpcoming();
+        maybeRefreshCalendar();
+        return;
+    }
+
+    // Cancel edits
+    if (e.target.matches('.cancel-edits')) {
+        const item = e.target.closest('li');
+        if (!item) return;
+        item.classList.remove('open');
+        const details = item.querySelector('.task-details');
+        if (details) details.style.display = 'none';
+        return;
     }
 });
 
@@ -763,7 +926,7 @@ function openInlineAddInDay(dateISO) {
             alert('Cannot set a task to a time that has already passed.');
             return;
         }
-        const newTask = { id: Date.now().toString(), name, completed: false, listId: '', dueDate, dueTime };
+        const newTask = { id: Date.now().toString(), name, description: '', completed: false, listId: '', dueDate, dueTime };
         tasks.push(newTask);
         saveTasksToStorage(tasks);
         cleanup();
