@@ -619,6 +619,11 @@ nav {
     margin-bottom: 6px;
 }
 
+
+#monthLabel {
+    color: var(--secondary-text-color);
+}
+
 .prevNextMontBtn {
     color: var(--text-color);
     background: none;
@@ -739,6 +744,10 @@ nav {
 .selected-day-tasks { max-height: 120px; overflow: auto; }
 .calendar-actions { display:flex; justify-content:flex-end; }
 
+.selected-day-tasks p {
+    color: var(--text-color);
+}
+
 #addTaskForDayBtn {
     background: var(--primary-color);
     border: none;
@@ -771,6 +780,26 @@ nav {
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid var(--border-color);
+}
+
+.task-text {
+    flex: 1;
+    color: var(--text-color);
+    white-space: nowrap;
+}
+
+.calendar-delete-btn {
+    background: none;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--text-color);
+    transition: color 0.2s ease;
+}
+.calendar-delete-btn:hover {
+    color: red;
 }
 
 .upcoming-list {

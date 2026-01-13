@@ -852,11 +852,20 @@ function selectDay(dateISO) {
     // show tasks
     const tasks = getTasksFromStorage().filter(t => t.dueDate === dateISO);
     selectedDayTasks.innerHTML = '';
-    if (tasks.length === 0) selectedDayTasks.innerHTML = '<p>No tasks for this date</p>';
+    if (tasks.length === 0) {
+        selectedDayTasks.innerHTML = '<p>No tasks for this date</p>';
+        return;
+    }
     tasks.forEach(t => {
         const div = document.createElement('div');
         div.className = 'upcoming-item';
-        div.textContent = `${t.dueTime ? ('['+formatTime12(t.dueTime)+'] ') : ''}${t.name}`;
+        div.dataset.id = t.id;
+        div.innerHTML = `
+            <span class="task-text">${t.dueTime ? '[' + formatTime12(t.dueTime) + '] ' : ''}${t.name}</span>
+            <button type="button" class="calendar-delete-btn" title="Delete task">
+                <i class="fa-solid fa-trash-can"></i>
+            </button>
+        `;
         selectedDayTasks.appendChild(div);
     });
 }
@@ -870,6 +879,28 @@ if (closeCalendarModal) closeCalendarModal.addEventListener('click', closeCalend
 if (calendarModal) {
     const backdrop = calendarModal.querySelector('.calendar-modal-backdrop');
     if (backdrop) backdrop.addEventListener('click', closeCalendarModalFn);
+}
+
+// Delete from the selected-day task list in the month calendar
+if (selectedDayTasks) {
+    selectedDayTasks.addEventListener('click', (e) => {
+        const btn = e.target.closest('.calendar-delete-btn');
+        if (!btn) return;
+        const item = btn.closest('.upcoming-item');
+        if (!item) return;
+        const id = item.dataset.id;
+        if (!id) return;
+
+        let tasks = getTasksFromStorage();
+        tasks = tasks.filter(t => t.id !== id);
+        saveTasksToStorage(tasks);
+
+        // Refresh all relevant views
+        renderTasks();
+        renderUpcoming();
+        maybeRefreshCalendar();
+        if (selectedDayISO) selectDay(selectedDayISO);
+    });
 }
 
 if (addTaskForDayBtn) addTaskForDayBtn.addEventListener('click', () => {
