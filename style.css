@@ -394,7 +394,7 @@ nav {
 */
 
 .mainSection {
-    overflow: hidden;
+    overflow-y: scroll;
     font-family: 'Outfit', sans-serif;
     flex: 1;
     height: 85vh;
@@ -496,14 +496,43 @@ nav {
 .chevronRight { transition: transform 0.2s ease; }
 .tasks li.open .chevronRight { transform: rotate(90deg); }
 .task-details label { display: block; margin: 6px 0; font-size: 14px; }
-.task-details input[type="text"], .task-details input[type="date"], .task-details input[type="time"], .task-details select, .task-details textarea { width: 100%; padding: 8px; border-radius: 4px; border: 1px solid var(--border-color); box-sizing: border-box; margin-top: 4px; }
+.task-details input[type="text"], .task-details input[type="date"], .task-details input[type="time"], .task-details select, .task-details textarea { 
+    width: 100%; 
+    padding: 8px; 
+    border-radius: 4px; 
+    border: 1px solid var(--border-color); 
+    box-sizing: border-box; 
+    margin-top: 4px;
+    color: var(--text-color); 
+    background-color: var(--secondary-bg-color);
+}
 /* make description label span both columns and give textarea more height */
 .task-details .desc-field { grid-column: 1 / -1; }
 .task-details textarea { min-height: 86px; }
 /* buttons should sit on a single row and align to the right, spanning both columns */
 .details-buttons { grid-column: 1 / -1; margin-top: 8px; display: flex; gap: 8px; justify-content: flex-end; }
-.details-buttons .save-edits { background: var(--primary-color); border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; }
-.details-buttons .cancel-edits { background: transparent; border: 1px solid var(--border-color); padding: 6px 10px; border-radius: 6px; cursor: pointer; }
+.details-buttons .save-edits { 
+    background: var(--primary-color); 
+    border: none; 
+    padding: 6px 10px; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    color: var(--secondary-text-color);
+}
+
+.edit-desc {
+    border-radius: 5px;
+    resize: none;
+}
+
+.details-buttons .cancel-edits { 
+    background: transparent; 
+    border: 1px solid var(--border-color); 
+    padding: 6px 10px; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    color: var(--text-color);
+}
 
 /* Responsive: single column on narrow screens */
 @media (max-width: 700px) {
@@ -828,17 +857,15 @@ nav {
     color: var(--secondary-text-color);
 }
 
-.sticky-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);;
-}
+
 
 .sticky-note {
+    display: flex;
+    flex-wrap: wrap;
     font-weight: 700;
     font-size: 20px;
     font-family: 'Caveat', cursive;
     height: 20vh;
-    width: 80%;
     margin: 20px;
     padding: 10px;
     background-color: #fffacd;
@@ -1032,7 +1059,7 @@ nav {
 }
 
 .task-list {
-    color: rgba(0,0,0,0.5);
+    color: var(--text-color);
     font-size: 0.85rem;
     margin-left: 6px;
 }
